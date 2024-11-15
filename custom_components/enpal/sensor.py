@@ -64,67 +64,72 @@ async def async_setup_entry(
         field = table.records[0].values['_field']
         measurement = table.records[0].values['_measurement']
 
-        if measurement == "inverter" and field == "Power.DC.Total":
-            addSensor('mdi:solar-power', 'Test Enpal Solar Production Power', 'power', 'W')
-        if measurement == "inverter" and field == "Power.House.Total":
-            addSensor('mdi:home-lightning-bolt', 'Enpal Power House Total', 'power', 'W')
-        if measurement == "system" and field == "Power.External.Total":
-            addSensor('mdi:home-lightning-bolt', 'Enpal Power External Total', 'power', 'W')
-        # Consum Total per Day
-        if measurement == "system" and field == "Energy.Consumption.Total.Day":
-            addSensor('mdi:home-lightning-bolt', 'Enpal Energy Consumption', 'energy', 'kWh')
+        if measurement == "inverter":
+            if field == "Power.DC.Total":
+                addSensor('mdi:solar-power', 'Enpal Solar Production Power', 'power', 'W')
+            elif field == "Power.House.Total":
+                addSensor('mdi:home-lightning-bolt', 'Enpal Power House Total', 'power', 'W')
+            elif field == "Voltage.Phase.A":
+                addSensor('mdi:lightning-bolt', 'Enpal Voltage Phase A', 'voltage', 'V')
+            elif field == "Current.Phase.A":
+                addSensor('mdi:lightning-bolt', 'Enpal Ampere Phase A', 'current', 'A') # missing
+            elif field == "Power.AC.Phase.A":
+                addSensor('mdi:lightning-bolt', 'Enpal Power Phase A', 'power', 'W')
+            elif field == "Voltage.Phase.B":
+                addSensor('mdi:lightning-bolt', 'Enpal Voltage Phase B', 'voltage', 'V')
+            elif field == "Current.Phase.B":
+                addSensor('mdi:lightning-bolt', 'Enpal Ampere Phase B', 'current', 'A') # missing
+            elif field == "Power.AC.Phase.B":
+                addSensor('mdi:lightning-bolt', 'Enpal Power Phase B', 'power', 'W')
+            elif field == "Voltage.Phase.C":
+                addSensor('mdi:lightning-bolt', 'Enpal Voltage Phase C', 'voltage', 'V')
+            elif field == "Current.Phase.C":
+                addSensor('mdi:lightning-bolt', 'Enpal Ampere Phase C', 'current', 'A') # missing
+            elif field == "Power.AC.Phase.C":
+                addSensor('mdi:lightning-bolt', 'Enpal Power Phase C', 'power', 'W')
 
-        # to the Grid and from the Grid
-        if measurement == "system" and field == "Energy.External.Total.Out.Day":
-            addSensor('mdi:transmission-tower-export', 'Enpal Energy External Out Day', 'energy', 'kWh')
-        if measurement == "system" and field == "Energy.External.Total.In.Day":
-            addSensor('mdi:transmission-tower-import', 'Enpal Energy External In Day', 'energy', 'kWh')
+            #Battery
+            elif field == "Power.Battery.Charge.Discharge":
+                addSensor('mdi:battery-charging', 'Enpal Battery Power', 'power', 'W')
+            elif field == "Energy.Battery.Charge.Level":
+                addSensor('mdi:battery', 'Enpal Battery Percent', 'battery', '%')
+            elif field == "Energy.Battery.Charge.Day":
+                addSensor('mdi:battery-arrow-up', 'Enpal Battery Charge Day', 'energy', 'kWh')
+            elif field == "Energy.Battery.Discharge.Day":
+                addSensor('mdi:battery-arrow-down', 'Enpal Battery Discharge Day', 'energy', 'kWh')
+            elif field == "Energy.Battery.Charge.Total.Unit.1":
+                addSensor('mdi:battery-arrow-up', 'Enpal Battery Charge Total', 'energy', 'kWh') # Missing
+            elif field == "Energy.Battery.Discharge.Total.Unit.1":
+                addSensor('mdi:battery-arrow-down', 'Enpal Battery Discharge Total', 'energy', 'kWh') # Missing
+            else:
+                _LOGGER.debug(f"Not adding measurement: {measurement} field: {field}")
 
-        # Solar Energy.Production.Total.Day
-        if measurement == "system" and field == "Energy.Production.Total.Day":
-            addSensor('mdi:solar-power-variant', 'Enpal Production Day', 'energy', 'kWh')
+        elif measurement == "system":
+            if field == "Power.External.Total":
+                addSensor('mdi:home-lightning-bolt', 'Enpal Power External Total', 'power', 'W')
+            elif field == "Energy.Consumption.Total.Day":
+                addSensor('mdi:home-lightning-bolt', 'Enpal Energy Consumption', 'energy', 'kWh')
+            elif field == "Energy.External.Total.Out.Day":
+                addSensor('mdi:transmission-tower-export', 'Enpal Energy External Out Day', 'energy', 'kWh')
+            elif field == "Energy.External.Total.In.Day":
+                addSensor('mdi:transmission-tower-import', 'Enpal Energy External In Day', 'energy', 'kWh')
+            elif field == "Energy.Production.Total.Day":
+                addSensor('mdi:solar-power-variant', 'Enpal Production Day', 'energy', 'kWh')
+            else:
+                _LOGGER.debug(f"Not adding measurement: {measurement} field: {field}")
 
-        #Power Sensor
-        if measurement == "inverter" and field == "Voltage.Phase.A":
-            addSensor('mdi:lightning-bolt', 'Enpal Voltage Phase A', 'voltage', 'V')
-        if measurement == "inverter" and field == "Current.Phase.A":
-            addSensor('mdi:lightning-bolt', 'Enpal Ampere Phase A', 'current', 'A')
-        if measurement == "inverter" and field == "Power.AC.Phase.A":
-            addSensor('mdi:lightning-bolt', 'Enpal Power Phase A', 'power', 'W')
-        if measurement == "inverter" and field == "Voltage.Phase.B":
-            addSensor('mdi:lightning-bolt', 'Enpal Voltage Phase B', 'voltage', 'V')
-        if measurement == "inverter" and field == "Current.Phase.B":
-            addSensor('mdi:lightning-bolt', 'Enpal Ampere Phase B', 'current', 'A')
-        if measurement == "inverter" and field == "Power.AC.Phase.B":
-            addSensor('mdi:lightning-bolt', 'Enpal Power Phase B', 'power', 'W')
-        if measurement == "inverter" and field == "Voltage.Phase.C":
-            addSensor('mdi:lightning-bolt', 'Enpal Voltage Phase C', 'voltage', 'V')
-        if measurement == "inverter" and field == "Current.Phase.C":
-            addSensor('mdi:lightning-bolt', 'Enpal Ampere Phase C', 'current', 'A')
-        if measurement == "inverter" and field == "Power.AC.Phase.C":
-            addSensor('mdi:lightning-bolt', 'Enpal Power Phase C', 'power', 'W')
+        elif measurement == "wallbox":
+            if field == "State.Wallbox.Connector.1.Charge":
+                addSensor('mdi:ev-station', 'Wallbox Charge Percent', 'battery', '%')
+            elif field == "Power.Wallbox.Connector.1.Charging":
+                addSensor('mdi:ev-station', 'Wallbox Charging Power', 'power', 'W')
+            elif field == "Energy.Wallbox.Connector.1.Charged.Total":
+                addSensor('mdi:ev-station', 'Wallbox Charging Total', 'energy', 'Wh')
+            else:
+                _LOGGER.debug(f"Not adding measurement: {measurement} field: {field}")
 
-        #Battery
-        if measurement == "battery" and field == "Power.Battery.Charge.Discharge":
-            addSensor('mdi:battery-charging', 'Enpal Battery Power', 'power', 'W')
-        if measurement == "battery" and field == "Energy.Battery.Charge.Level":
-            addSensor('mdi:battery', 'Enpal Battery Percent', 'battery', '%')
-        if measurement == "battery" and field == "Energy.Battery.Charge.Day":
-            addSensor('mdi:battery-arrow-up', 'Enpal Battery Charge Day', 'energy', 'kWh')
-        if measurement == "battery" and field == "Energy.Battery.Discharge.Day":
-            addSensor('mdi:battery-arrow-down', 'Enpal Battery Discharge Day', 'energy', 'kWh')
-        if measurement == "battery" and field == "Energy.Battery.Charge.Total.Unit.1":
-            addSensor('mdi:battery-arrow-up', 'Enpal Battery Charge Total', 'energy', 'kWh')
-        if measurement == "battery" and field == "Energy.Battery.Discharge.Total.Unit.1":
-            addSensor('mdi:battery-arrow-down', 'Enpal Battery Discharge Total', 'energy', 'kWh')
-
-        #Wallbox
-        if measurement == "wallbox" and field == "State.Wallbox.Connector.1.Charge":
-            addSensor('mdi:ev-station', 'Wallbox Charge Percent', 'battery', '%')
-        if measurement == "wallbox" and field == "Power.Wallbox.Connector.1.Charging":
-            addSensor('mdi:ev-station', 'Wallbox Charging Power', 'power', 'W')
-        if measurement == "wallbox" and field == "Energy.Wallbox.Connector.1.Charged.Total":
-            addSensor('mdi:ev-station', 'Wallbox Charging Total', 'energy', 'Wh')
+        else:
+            _LOGGER.debug(f"Measurement type not recognized: {measurement}")
 
     entity_registry = async_get(hass)
     entries = async_entries_for_config_entry(
