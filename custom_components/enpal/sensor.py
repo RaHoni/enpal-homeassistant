@@ -85,23 +85,23 @@ async def async_setup_entry(
             addSensor('mdi:solar-power-variant', 'Enpal Production Day', 'energy', 'kWh')
 
         #Power Sensor
-        if measurement == "powerSensor" and field == "Voltage.Phase.A":
+        if measurement == "inverter" and field == "Voltage.Phase.A":
             addSensor('mdi:lightning-bolt', 'Enpal Voltage Phase A', 'voltage', 'V')
-        if measurement == "powerSensor" and field == "Current.Phase.A":
+        if measurement == "inverter" and field == "Current.Phase.A":
             addSensor('mdi:lightning-bolt', 'Enpal Ampere Phase A', 'current', 'A')
-        if measurement == "powerSensor" and field == "Power.AC.Phase.A":
+        if measurement == "inverter" and field == "Power.AC.Phase.A":
             addSensor('mdi:lightning-bolt', 'Enpal Power Phase A', 'power', 'W')
-        if measurement == "powerSensor" and field == "Voltage.Phase.B":
+        if measurement == "inverter" and field == "Voltage.Phase.B":
             addSensor('mdi:lightning-bolt', 'Enpal Voltage Phase B', 'voltage', 'V')
-        if measurement == "powerSensor" and field == "Current.Phase.B":
+        if measurement == "inverter" and field == "Current.Phase.B":
             addSensor('mdi:lightning-bolt', 'Enpal Ampere Phase B', 'current', 'A')
-        if measurement == "powerSensor" and field == "Power.AC.Phase.B":
+        if measurement == "inverter" and field == "Power.AC.Phase.B":
             addSensor('mdi:lightning-bolt', 'Enpal Power Phase B', 'power', 'W')
-        if measurement == "powerSensor" and field == "Voltage.Phase.C":
+        if measurement == "inverter" and field == "Voltage.Phase.C":
             addSensor('mdi:lightning-bolt', 'Enpal Voltage Phase C', 'voltage', 'V')
-        if measurement == "powerSensor" and field == "Current.Phase.C":
+        if measurement == "inverter" and field == "Current.Phase.C":
             addSensor('mdi:lightning-bolt', 'Enpal Ampere Phase C', 'current', 'A')
-        if measurement == "powerSensor" and field == "Power.AC.Phase.C":
+        if measurement == "inverter" and field == "Power.AC.Phase.C":
             addSensor('mdi:lightning-bolt', 'Enpal Power Phase C', 'power', 'W')
 
         #Battery
